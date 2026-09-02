@@ -1,0 +1,21 @@
+{
+	"name": "lowrezstudio.com",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"fmt": "oxfmt",
+		"fmt:check": "oxfmt --check"
+	},
+	"dependencies": {
+		"@astrojs/sitemap": "^3.7.4",
+		"astro": "^7.2.9"
+	},
+	"devDependencies": {
+		"oxfmt": "^0.66.0"
+	}
+}

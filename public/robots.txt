@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lowrezstudio.com/sitemap-index.xml

@@ -1,0 +1,29 @@
+---
+import SEO from "../components/SEO.astro";
+import type { Props as SEOProps } from "../components/SEO.astro";
+
+interface Props extends Partial<SEOProps> {
+	title: string;
+	description: string;
+}
+
+const { title, description, ...seoProps } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="light dark" />
+		<link rel="icon" href="/favicon.ico" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.cyan.min.css" />
+		<title>{title}</title>
+		<SEO title={title} description={description} {...seoProps} />
+		<slot name="head" />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+

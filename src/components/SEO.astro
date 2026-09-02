@@ -1,0 +1,100 @@
+---
+export interface Props {
+	title: string;
+	description: string;
+	canonical?: string | URL;
+	image?: string;
+	imageAlt?: string;
+	type?: "website" | "article";
+	locale?: string;
+	noindex?: boolean;
+	siteName?: string;
+	twitterCard?: "summary" | "summary_large_image";
+	twitterSite?: string;
+	twitterCreator?: string;
+	structuredData?: Record<string, unknown> | Array<Record<string, unknown>> | null;
+}
+
+const {
+	title,
+	description,
+	canonical,
+	image = "/logo.png",
+	imageAlt = title,
+	type = "website",
+	locale = "en_US",
+	noindex = false,
+	siteName = "Low-Rez Studio",
+	twitterCard = "summary_large_image",
+	twitterSite,
+	twitterCreator,
+	structuredData,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? Astro.url;
+const canonicalURL = canonical ? new URL(canonical, siteUrl).href : new URL(Astro.url.pathname, siteUrl).href;
+const imageURL = new URL(image, siteUrl).href;
+const robotsContent = noindex ? "noindex, nofollow" : "index, follow";
+
+const defaultStructuredData = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "WebSite",
+			"@id": new URL("#website", siteUrl).href,
+			"url": siteUrl.href,
+			"name": siteName,
+			"description": description,
+			"publisher": {
+				"@id": new URL("#organization", siteUrl).href,
+			},
+		},
+		{
+			"@type": "Organization",
+			"@id": new URL("#organization", siteUrl).href,
+			"name": siteName,
+			"url": siteUrl.href,
+			"logo": new URL("/logo.png", siteUrl).href,
+			"sameAs": [
+				"https://github.com/LowRezStudio",
+				"https://discord.gg/yZDuxAk4d9",
+				"https://docs.lowrezstudio.com",
+			],
+		},
+	],
+};
+
+const jsonLd = structuredData === undefined ? defaultStructuredData : structuredData;
+---
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Primary Meta Tags -->
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="robots" content={robotsContent} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:alt" content={imageAlt} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content={locale} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />
+<meta name="twitter:image:alt" content={imageAlt} />
+{twitterSite && <meta name="twitter:site" content={twitterSite} />}
+{twitterCreator && <meta name="twitter:creator" content={twitterCreator} />}
+
+<!-- Structured Data (JSON-LD) -->
+{jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
