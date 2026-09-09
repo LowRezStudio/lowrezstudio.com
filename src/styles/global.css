@@ -13,3 +13,73 @@ section .grid > article {
 section .grid > article > footer {
 	margin-top: auto;
 }
+
+/* Random blurred backdrop (Tempest Launcher loading screens). Kept subtle
+   on purpose: heavy blur + theme-aware veil so content stays readable.
+   Note: Pico paints an opaque background on <body>, so the backdrop uses
+   z-index 0 with page content stacked above it (a negative z-index would
+   end up behind the body background and stay invisible). */
+.site-background {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.site-content {
+	position: relative;
+	z-index: 1;
+	padding-block: 2rem 3rem;
+}
+
+.site-background img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	/* Overscale slightly so blurred edges never show gaps. */
+	transform: scale(1.08);
+	filter: blur(12px) saturate(1.25);
+	opacity: 0;
+	transition: opacity 1.2s ease;
+}
+
+.site-background img.is-loaded {
+	opacity: 0.65;
+}
+
+.site-background-veil {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.72) 0%,
+		rgba(255, 255, 255, 0.58) 100%
+	);
+}
+
+/* Pico dark theme: explicit attribute wins, otherwise follow the OS. */
+html[data-theme="dark"] .site-background-veil {
+	background: linear-gradient(180deg, rgba(8, 13, 24, 0.55) 0%, rgba(8, 13, 24, 0.42) 100%);
+}
+
+html[data-theme="light"] .site-background-veil {
+	background: linear-gradient(
+		180deg,
+		rgba(255, 255, 255, 0.72) 0%,
+		rgba(255, 255, 255, 0.58) 100%
+	);
+}
+
+@media (prefers-color-scheme: dark) {
+	html:not([data-theme="light"]) .site-background-veil {
+		background: linear-gradient(180deg, rgba(8, 13, 24, 0.55) 0%, rgba(8, 13, 24, 0.42) 100%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.site-background img {
+		transition: none;
+	}
+}

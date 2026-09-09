@@ -1,0 +1,44 @@
+---
+// Random blurred backdrop based on the Tempest Launcher loading screens.
+// Same approach as the launcher: glob the directory at build time, pick one
+// image per page load, keep it heavily blurred + veiled so text stays
+// readable. Decorative only: hidden from assistive tech.
+const modules = import.meta.glob<string>("../assets/backgrounds/*.webp", {
+	eager: true,
+	query: "?url",
+	import: "default",
+});
+const backgrounds = Object.values(modules);
+---
+
+<div class="site-background" aria-hidden="true">
+	<img
+		id="site-background-image"
+		alt=""
+		decoding="async"
+		fetchpriority="low"
+		data-backgrounds={JSON.stringify(backgrounds)}
+	/>
+	<div class="site-background-veil"></div>
+</div>
+
+<script is:inline>
+	(() => {
+		const img = document.getElementById("site-background-image");
+		if (!img) return;
+		try {
+			const list = JSON.parse(img.dataset.backgrounds || "[]");
+			if (!list.length) return;
+			const pick = list[Math.floor(Math.random() * list.length)];
+			const reveal = () => img.classList.add("is-loaded");
+			if (img.complete && img.naturalWidth > 0) reveal();
+			else {
+				img.addEventListener("load", reveal, { once: true });
+				img.addEventListener("error", () => img.remove(), { once: true });
+			}
+			img.src = pick;
+		} catch {
+			img.remove();
+		}
+	})();
+</script>

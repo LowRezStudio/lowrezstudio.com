@@ -1,6 +1,7 @@
 ---
 import SEO from "../components/SEO.astro";
 import type { Props as SEOProps } from "../components/SEO.astro";
+import DynamicBackground from "../components/DynamicBackground.astro";
 import "../styles/global.css";
 
 interface Props extends Partial<SEOProps> {
@@ -30,7 +31,9 @@ const { title, description, ...seoProps } = Astro.props;
 		<slot name="head" />
 	</head>
 	<body>
-		<slot />
+		<DynamicBackground />
+		<div class="site-content">
+			<slot />
+		</div>
 	</body>
 </html>
-
