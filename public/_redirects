@@ -1,0 +1,2 @@
+# Send www traffic to the apex domain. Needs a www DNS record to take effect.
+https://www.lowrezstudio.com/* https://lowrezstudio.com/:splat 301
