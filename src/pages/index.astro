@@ -4,7 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout
 	title="Low-Rez Studio"
-	description="Tempest is a community launcher for Paladins. Play any patch from 2016 to 2026, install mods, and host or join private servers."
+	description="Tempest is a community launcher for Paladins. Play any patch from 2016 to 2026, install mods from the Mod Library, and host or join private servers."
 >
 	<main class="container">
 		<section>
@@ -46,8 +46,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 						<a href="https://docs.lowrezstudio.com/tempest/introduction" role="button">
 							Get Started with Tempest
 						</a>
-						<a href="https://github.com/LowRezStudio/Tempest" role="button" class="secondary">
-							View on GitHub
+						<a href="https://mods.lowrezstudio.com" role="button" class="secondary">
+							Browse Mods
 						</a>
 					</div>
 				</footer>
@@ -55,6 +55,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		</section>
 
 		<section>
+			<hgroup>
+				<h2>Explore</h2>
+				<p>Documentation, mods, and the community around Tempest.</p>
+			</hgroup>
+
 			<div class="grid">
 				<article>
 					<header>
@@ -67,8 +72,30 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 						Find setup guides for Tempest, modding tutorials for UDK, and details on the Marshal network protocol.
 					</p>
 					<footer>
-						<a href="https://docs.lowrezstudio.com" role="button" class="outline">
-							Read the Docs
+						<div class="grid">
+							<a href="https://docs.lowrezstudio.com" role="button" class="outline">
+								Read the Docs
+							</a>
+							<a href="https://docs.lowrezstudio.com/blog" role="button" class="outline">
+								Blog
+							</a>
+						</div>
+					</footer>
+				</article>
+
+				<article>
+					<header>
+						<hgroup>
+							<h4>Mod Library</h4>
+							<p>Community Creations</p>
+						</hgroup>
+					</header>
+					<p>
+						Browse community-made HUDs, sounds, textures, models, and gameplay tweaks. Every mod installs in one click through Tempest.
+					</p>
+					<footer>
+						<a href="https://mods.lowrezstudio.com" role="button" class="outline">
+							Browse Mods
 						</a>
 					</footer>
 				</article>
@@ -76,34 +103,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 				<article>
 					<header>
 						<hgroup>
-							<h4>Discord</h4>
-							<p>Community Chat</p>
+							<h4>Community</h4>
+							<p>Discord & GitHub</p>
 						</hgroup>
 					</header>
 					<p>
-						Hang out with other players, share mods, talk reverse engineering, and get help running servers.
+						Hang out with other players, share mods, talk reverse engineering, and browse our open-source code.
 					</p>
 					<footer>
-						<a href="https://discord.gg/yZDuxAk4d9" role="button" class="secondary outline">
-							Join our Discord
-						</a>
-					</footer>
-				</article>
-
-				<article>
-					<header>
-						<hgroup>
-							<h4>GitHub</h4>
-							<p>Open Source</p>
-						</hgroup>
-					</header>
-					<p>
-						Browse all our repositories, inspect the code, or jump in and contribute.
-					</p>
-					<footer>
-						<a href="https://github.com/LowRezStudio" role="button" class="contrast outline">
-							View on GitHub
-						</a>
+						<div class="grid">
+							<a href="https://discord.gg/yZDuxAk4d9" role="button" class="secondary outline">
+								Discord
+							</a>
+							<a href="https://github.com/LowRezStudio" role="button" class="contrast outline">
+								GitHub
+							</a>
+						</div>
 					</footer>
 				</article>
 			</div>
